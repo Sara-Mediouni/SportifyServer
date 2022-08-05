@@ -2,17 +2,16 @@ const Club=require('../models/Club');
 
 
 //Liste des clubs
-const index=(req, res, next)=>{
+const index=(req,res,next)=>{
     Club.find()
-    .then(response=>{
-        res.json({
-            response
-        })
-    }).catch(error=>{
-        res.json({
-            message:'An error occured!'
-        })
-    })
+
+.then((clubs)=>{
+    return res.status(203).json({clubs})
+}
+)
+.catch((error)=>{
+ return res.status(400).json({error})
+})
 }
 //Show club by ID
 const show=(req, res, next)=>{
@@ -63,7 +62,7 @@ const update=(req, res, next)=>{
         Activite:req.body.Activite,
         Nom_entren:req.body.Nom_entren,
         Region:req.body.Region,
-        Gouvernement:req.body.Gouvernement,
+        Gouvernement:req.body.Gouvernemrsrent,
         Num_tel:req.body.Num_tel,
         Logo:req.body.Logo,
         Emplacement:req.body.Emplacement

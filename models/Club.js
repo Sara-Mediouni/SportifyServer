@@ -1,24 +1,31 @@
-const Temps=require('../models/Temps');
+const tempsschema=require('../models/Temps');
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
 const clubschema=new Schema({
     Nom_club:{
     type: String,
-    required: true
+    required:'true'
+   
     },
-    Activite:[String],
-    required: true
-    ,
+
+
+    Activite:{
+    type:[String],
+    required:'true'
+    },
+ 
     Nom_entren:{
         type: String
     },
+
     Temps:{
-    type:Temps,
-    required: true
+         type:[mongoose.Schema.Types.ObjectId],
+         ref:'Temps',
+         required:'true'
     },
+
     Emplacement:{
-        type: String,
-        required: true,
+        type: String, 
     },
     Logo:{
         type: String
@@ -26,11 +33,11 @@ const clubschema=new Schema({
     Num_tel:[String],
     Region:{
         type:String,
-        required:true
+        
     },
     Gouvernement:{
         type:String,
-        required:true
+        
     }
         
     

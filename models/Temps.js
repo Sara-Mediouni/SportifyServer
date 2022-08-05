@@ -5,11 +5,11 @@ const tempsschema=new Schema({
    
     Horaire:{
         type:String,
-        required:true
+       
     },
     Jours:{
         type:String,
-        required:true
+    
     }
         
     

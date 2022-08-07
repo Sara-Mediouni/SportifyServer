@@ -3,10 +3,11 @@ const router=express.Router()
 const ClubController=require('../controllers/ClubController')
 
 router.get('/',ClubController.index)
-router.post('/show',ClubController.show)
+router.post('/show/:id',ClubController.show)
+router.post('/showtime/:id',ClubController.show)
 router.post('/store',ClubController.store)
-router.post('/update',ClubController.update)
-router.post('/delete',ClubController.destroy)
+router.post('/update/:id',ClubController.update)
+router.post('/delete/:id',ClubController.destroy)
 
 
 

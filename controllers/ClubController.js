@@ -1,5 +1,5 @@
 const Club=require('../models/Club');
-
+const Time=require('../models/Temps')
 
 //Liste des clubs
 const index=(req,res,next)=>{
@@ -27,6 +27,24 @@ const show=(req, res, next)=>{
         })
     })
 }
+//Show time by ID
+const showTime=(req, res, next)=>{
+    let TimeID=req.body.TimeID
+    Time.findById(TimeID)
+    .then(response=>{
+        res.json({
+            response
+        })
+    }).catch(error=>{
+        res.json({
+            message:'An error occured!'
+        })
+    })
+}
+//Club par activité
+const showClubByAct=(req, res, next)=>{
+  
+}
 //Ajout du club
 const store=(req, res, next)=>{
     let club=new Club({
@@ -37,9 +55,7 @@ const store=(req, res, next)=>{
         Gouvernement:req.body.Gouvernement,
         Num_tel:req.body.Num_tel,
         Logo:req.body.Logo,
-        Emplacement:req.body.Emplacement
-
-    })
+        Emplacement:req.body.Emplacement})
     club.save()
     .then(response=>{
         res.json({
@@ -53,7 +69,7 @@ const store=(req, res, next)=>{
     
 }
 
-//màj des clubs
+   //Find by id et mettre à jour des clubs
 
 const update=(req, res, next)=>{
     let clubID=req.body.clubID
@@ -68,10 +84,12 @@ const update=(req, res, next)=>{
         Emplacement:req.body.Emplacement
 
     }
+
+    
    Club.findByIdAndUpdate(clubID,{$set:updatedClub})
 .then(()=>{
     res.json({
-        message:'Club updated successfully!'
+        message:'Club updated successfully !'
     })
 })
 .catch(error=>{
@@ -82,7 +100,7 @@ const update=(req, res, next)=>{
 
 }
 
-//delete club
+//delete club by id
 const destroy=(req, res, next)=>{
     let clubID=req.body.clubID
     Club.findByIdAndRemove(clubID)
@@ -98,5 +116,5 @@ const destroy=(req, res, next)=>{
     })
 }
 module.exports={
-    index,show,store,update,destroy
+    index,show,showTime,store,update,destroy
 }

@@ -32,30 +32,43 @@ const showTime=(req, res, next)=>{
     
 }
 //Club par activité
-const showClubByAct=(req, res, next)=>{
-  
+const findByAct=(req, res, next)=>{
+   
+    Club.find({ activite: req.params.activite })
+      .then(club => res.status(200).json(club))
+      .catch(error => res.status(404).json({ error }));
+}
+//Club par region
+const findByRegion=(req, res, next)=>{
+   
+    Club.find({ region: req.params.region })
+      .then(club => res.status(200).json(club))
+      .catch(error => res.status(404).json({ error }));
+}
+//Club par gouvernement
+const findByGouv=(req, res, next)=>{
+   
+    Club.find({ gouvernement: req.params.gouvernement })
+      .then(club => res.status(200).json(club))
+      .catch(error => res.status(404).json({ error }));
 }
 
 
 //Ajout du club
-const store=(req, res, next)=>{
-
-    delete req.body._id;
-   const club=new Club({
-       Nom_club:req.body.Nom_club,
-       Activité:req.body.Activité,
-       Temps:req.body.Temps,
-       Gouvernement:req.body.Gouvernement,
-       Région:req.body.Région,
-       Emplacement:req.body.Emplacement
-
-    })
-    club.save()
-    .then(() => res.status(201).json({ message: 'Club saved !'}))
-    .catch(error => res.status(400).json({ error }));
+const store=(req,res,next)=>{
     
-}
-
+    const cl=new Club({...req.body}, { strict: false });
+    cl.save()
+     
+    .then((club)=>{
+        return res.status(203).json({club})
+ 
+ 
+    })
+    .catch((error)=>{
+     return res.status(400).json({error})
+    })
+ }
 
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
@@ -75,5 +88,5 @@ const destroy=(req, res, next)=>{
 
 
 module.exports={
-    index,show,showTime,store,update,destroy
+    index,show,showTime,store,update,destroy,findByAct,findByGouv,findByRegion
 }

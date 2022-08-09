@@ -8,8 +8,9 @@ router.get('/showtime/:id',ClubController.show)
 router.post('/store',ClubController.store)
 router.put('/update/:id',ClubController.update)
 router.delete('/delete/:id',ClubController.destroy)
-
-
+router.get('/find/:activite',ClubController.findByAct)
+router.get('/find/:region',ClubController.findByRegion)
+router.get('/find/:gouvernement',ClubController.findByGouv)
 
 
 module.exports =router

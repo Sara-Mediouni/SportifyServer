@@ -2,46 +2,59 @@ const tempsschema=require('../models/Temps');
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
 const clubschema=new Schema({
-    Nom_club:{
+    nom_club:{
         type: String,
-       // required:true
+     required:true,
+        trim:true,
+      
    
    
     },
 
 
-    Activite:{
+    activite:{
          type:[String],
+         default:null,
+         required:true,
+         trim:true,
    
     },
  
-    Nom_entren:{
-         type: String
+    nom_entren:{
+         type: String,
+         default:null
     },
 
-    Temps:{
+    temps:{
          type:[mongoose.Schema.Types.ObjectId],
          ref:'Temps',
+         default:null
        
     },
 
-    Emplacement:{
+    emplacement:{
          type: String, 
+         default:null,
     },
-    Logo:{
-         type: String
+    logo:{
+         type: String,
+         default:null,
     },
-    Num_tel:[String],
-    Region:{
+    num_tel:{
+     type:[String],
+     default:null,
+    },
+    region:{
          type:String,
+         default:null,
         
     },
-    Gouvernement:{
+    gouvernement:{
          type:String,
+         default:null,
         
     }
         
     
 })
-const Club=mongoose.model('Club',clubschema);
-module.exports=Club
+module.exports=mongoose.model('Club',clubschema);

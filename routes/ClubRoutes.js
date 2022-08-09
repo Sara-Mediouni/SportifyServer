@@ -1,13 +1,13 @@
 const express=require('express')
 const router=express.Router()
 const ClubController=require('../controllers/ClubController')
-
+const multer=require('../middleware/multer-config')
 router.get('/',ClubController.index)
-router.post('/show/:id',ClubController.show)
-router.post('/showtime/:id',ClubController.show)
+router.get('/show/:id',ClubController.show)
+router.get('/showtime/:id',ClubController.show)
 router.post('/store',ClubController.store)
-router.post('/update/:id',ClubController.update)
-router.post('/delete/:id',ClubController.destroy)
+router.put('/update/:id',ClubController.update)
+router.delete('/delete/:id',ClubController.destroy)
 
 
 

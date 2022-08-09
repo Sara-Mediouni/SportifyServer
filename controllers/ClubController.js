@@ -1,5 +1,6 @@
 const Club=require('../models/Club');
-const Time=require('../models/Temps')
+const Temps = require('../models/Temps');
+
 
 //Liste des clubs
 const index=(req,res,next)=>{
@@ -7,114 +8,72 @@ const index=(req,res,next)=>{
 
 .then((clubs)=>{
     return res.status(203).json({clubs})
-}
-)
+})
 .catch((error)=>{
  return res.status(400).json({error})
 })
 }
+
+
 //Show club by ID
 const show=(req, res, next)=>{
-    let clubID=req.body.clubID
-    Club.findById(clubID)
-    .then(response=>{
-        res.json({
-            response
-        })
-    }).catch(error=>{
-        res.json({
-            message:'An error occured!'
-        })
-    })
+   
+        Club.findOne({ _id: req.params.id })
+          .then(club => res.status(200).json(club))
+          .catch(error => res.status(404).json({ error }));
 }
+
+
 //Show time by ID
 const showTime=(req, res, next)=>{
-    let TimeID=req.body.TimeID
-    Time.findById(TimeID)
-    .then(response=>{
-        res.json({
-            response
-        })
-    }).catch(error=>{
-        res.json({
-            message:'An error occured!'
-        })
-    })
+    Temps.findOne({ _id: req.params.id })
+    .then(temps => res.status(200).json(temps))
+    .catch(error => res.status(404).json({ error }));
+    
 }
 //Club par activité
 const showClubByAct=(req, res, next)=>{
   
 }
+
+
 //Ajout du club
 const store=(req, res, next)=>{
-    let club=new Club({
-        Nom_club:req.body.Nom_club,
-        Activite:req.body.Activite,
-        Nom_entren:req.body.Nom_entren,
-        Region:req.body.Region,
-        Gouvernement:req.body.Gouvernement,
-        Num_tel:req.body.Num_tel,
-        Logo:req.body.Logo,
-        Emplacement:req.body.Emplacement})
+
+    delete req.body._id;
+   const club=new Club({
+       Nom_club:req.body.Nom_club,
+       Activité:req.body.Activité,
+       Temps:req.body.Temps,
+       Gouvernement:req.body.Gouvernement,
+       Région:req.body.Région,
+       Emplacement:req.body.Emplacement
+
+    })
     club.save()
-    .then(response=>{
-        res.json({
-            message:'Club added successfully!'
-        })
-    }).catch(error=>{
-            res.json({
-                message:'An error occured!'
-            })
-        })
+    .then(() => res.status(201).json({ message: 'Club saved !'}))
+    .catch(error => res.status(400).json({ error }));
     
 }
 
-   //Find by id et mettre à jour des clubs
 
+//Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
-    let clubID=req.body.clubID
-    let updatedClub={
-        Nom_club:req.body.Nom_club,
-        Activite:req.body.Activite,
-        Nom_entren:req.body.Nom_entren,
-        Region:req.body.Region,
-        Gouvernement:req.body.Gouvernemrsrent,
-        Num_tel:req.body.Num_tel,
-        Logo:req.body.Logo,
-        Emplacement:req.body.Emplacement
-
-    }
-
-    
-   Club.findByIdAndUpdate(clubID,{$set:updatedClub})
-.then(()=>{
-    res.json({
-        message:'Club updated successfully !'
-    })
-})
-.catch(error=>{
-    res.json({
-        message:'An error Occured!'
-    })
-})
-
+  
+        Club.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+          .then(() => res.status(200).json({ message: 'Club updated successfully !'}))
+          .catch(error => res.status(400).json({ error }));
+      
 }
 
 //delete club by id
 const destroy=(req, res, next)=>{
-    let clubID=req.body.clubID
-    Club.findByIdAndRemove(clubID)
-    .then(()=>{
-        req.json({
-            message:'Club added successfully!'
-        })
-    })
-    .catch(error=>{
-        req.json({
-            message:'An error Occured!'
-        })
-    })
+    Club.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Club deleted successfully !'}))
+    .catch(error => res.status(400).json({ error }));
 }
+
+
 module.exports={
     index,show,showTime,store,update,destroy
 }

@@ -3,40 +3,41 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema
 const clubschema=new Schema({
     Nom_club:{
-    type: String,
-    required:'true'
+        type: String,
+       // required:true
+   
    
     },
 
 
     Activite:{
-    type:[String],
-    required:'true'
+         type:[String],
+   
     },
  
     Nom_entren:{
-        type: String
+         type: String
     },
 
     Temps:{
          type:[mongoose.Schema.Types.ObjectId],
          ref:'Temps',
-         required:'true'
+       
     },
 
     Emplacement:{
-        type: String, 
+         type: String, 
     },
     Logo:{
-        type: String
+         type: String
     },
     Num_tel:[String],
     Region:{
-        type:String,
+         type:String,
         
     },
     Gouvernement:{
-        type:String,
+         type:String,
         
     }
         

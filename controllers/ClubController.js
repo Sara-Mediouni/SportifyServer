@@ -1,13 +1,19 @@
 const Club=require('../models/Club');
 const Temps = require('../models/Temps');
-
-
+const storage=require('../middleware/multer-config')
+const fs=require('fs')
+const multer=require('multer')
+const path=require('path');
+const { extname } = require('path');
+var ObjectId = require('mongodb').ObjectId;
+var clubs=[];
 //Liste des clubs
 const index=(req,res,next)=>{
     Club.find()
 
 .then((clubs)=>{
-    return res.status(203).json({clubs})
+   // console.log(clubs);
+    res.status(203).json(clubs)
 })
 .catch((error)=>{
  return res.status(400).json({error})
@@ -24,13 +30,7 @@ const show=(req, res, next)=>{
 }
 
 
-//Show time by ID
-const showTime=(req, res, next)=>{
-    Temps.findOne({ _id: req.params.id })
-    .then(temps => res.status(200).json(temps))
-    .catch(error => res.status(404).json({ error }));
-    
-}
+
 //Club par activité
 const findByAct=(req, res, next)=>{
    
@@ -54,10 +54,11 @@ const findByGouv=(req, res, next)=>{
 }
 
 
+
 //Ajout du club
 const store=(req,res,next)=>{
     
-    const cl=new Club({...req.body}, { strict: false });
+    const cl=new Club({...req.body }, { strict: false });
     cl.save()
      
     .then((club)=>{
@@ -73,7 +74,7 @@ const store=(req,res,next)=>{
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
   
-        Club.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+        Club.updateOne({ _id: req.params.id }, { ...req.body,Logo:req.file.filename, _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Club updated successfully !'}))
           .catch(error => res.status(400).json({ error }));
       
@@ -88,5 +89,5 @@ const destroy=(req, res, next)=>{
 
 
 module.exports={
-    index,show,showTime,store,update,destroy,findByAct,findByGouv,findByRegion
+    index,show,store,update,destroy,findByAct,findByGouv,findByRegion
 }

@@ -1,5 +1,6 @@
 const express=require('express');
 const mongoose=require('mongoose');
+const path = require('path');
 const {MongoClient}=require('mongodb');
 const bodyParser=require('body-parser');
 const morgan=require('morgan');
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-const uri="mongodb+srv://Sara:admin@cluster0.cxqyjam.mongodb.net/test?retryWrites=true&w=majority";
+const uri="mongodb+srv://Sara:admin@cluster0.cxqyjam.mongodb.net/Sportif?retryWrites=true&w=majority";
 mongoose.connect(uri,{ useNewUrlParser : true,
     useUnifiedTopology: true });
 const db=mongoose.connection
@@ -31,4 +32,4 @@ app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
 })
 app.use('/api/club',ClubRoute)
-
+console.log(__dirname)

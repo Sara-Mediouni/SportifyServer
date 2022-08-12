@@ -2,7 +2,7 @@ const tempsschema=require('../models/Temps');
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
 const clubschema=new Schema({
-    nom_club:{
+    Nom_club:{
         type: String,
      required:true,
         trim:true,
@@ -12,7 +12,7 @@ const clubschema=new Schema({
     },
 
 
-    activite:{
+    Activité:{
          type:[String],
          default:null,
          required:true,
@@ -20,38 +20,45 @@ const clubschema=new Schema({
    
     },
  
-    nom_entren:{
+    Nom_entren:{
          type: String,
-         default:null
+         default:null,
+         trim:true,
     },
 
-    temps:{
-         type:[mongoose.Schema.Types.ObjectId],
+    Temps:{
+         type:mongoose.Schema.Types.Array,
          ref:'Temps',
-         default:null
+         default:null,
+         trim:true,
        
     },
 
-    emplacement:{
+    Emplacement:{
          type: String, 
          default:null,
+         trim:true,
     },
-    logo:{
-         type: String,
-         default:null,
+    Logo:{
+     
+         type:String
+         
     },
-    num_tel:{
+    Num_tel:{
      type:[String],
      default:null,
+     trim:true,
     },
-    region:{
+    Région:{
          type:String,
          default:null,
+         trim:true,
         
     },
-    gouvernement:{
+    Gouvernement:{
          type:String,
          default:null,
+         trim:true,
         
     }
         

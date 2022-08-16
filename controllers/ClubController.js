@@ -58,7 +58,7 @@ const findByGouv=(req, res, next)=>{
 //Ajout du club
 const store=(req,res,next)=>{
     
-    const cl=new Club({...req.body }, { strict: false });
+    const cl=new Club({...req.body,Logo:req.file.filename }, { strict: false });
     cl.save()
      
     .then((club)=>{
@@ -74,7 +74,7 @@ const store=(req,res,next)=>{
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
   
-        Club.updateOne({ _id: req.params.id }, { ...req.body,Logo:req.file.filename, _id: req.params.id })
+        Club.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Club updated successfully !'}))
           .catch(error => res.status(400).json({ error }));
       

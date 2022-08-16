@@ -4,7 +4,6 @@ const Schema=mongoose.Schema
 const clubschema=new Schema({
     Nom_club:{
         type: String,
-     required:true,
         trim:true,
       
    
@@ -41,7 +40,8 @@ const clubschema=new Schema({
     },
     Logo:{
      
-         type:String
+         type:String,
+         default:null
          
     },
     Num_tel:{

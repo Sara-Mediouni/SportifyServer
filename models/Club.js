@@ -27,7 +27,7 @@ const clubschema=new Schema({
     },
 
     Temps:{
-         type:mongoose.Schema.Types.String,
+         type:mongoose.Schema.Types.Array,
          ref:'Temps',
          default:null,
          trim:true,

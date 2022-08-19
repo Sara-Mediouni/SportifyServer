@@ -1,6 +1,7 @@
 const tempsschema=require('../models/Temps');
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
+const opts = { toJSON: { virtuals: true } };
 const clubschema=new Schema({
     Nom_club:{
         type: String,
@@ -40,9 +41,7 @@ const clubschema=new Schema({
     },
     Logo:{
      
-         type:String,
-         default:null
-         
+        type:String
     },
     Num_tel:{
      type:[String],
@@ -63,5 +62,5 @@ const clubschema=new Schema({
     }
         
     
-})
+},opts)
 module.exports=mongoose.model('Club',clubschema);

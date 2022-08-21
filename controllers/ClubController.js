@@ -12,8 +12,16 @@ const index=(req,res,next)=>{
     Club.find()
 
 .then((clubs)=>{
+    const a=[];
+    
    // console.log(clubs);
-    res.status(203).json(clubs)
+ clubs.map((c)=> {
+    c.Activité.map((act)=>{a.push(act);
+        })
+        
+})
+  const b=[...new Set(a)];
+  res.status(200).json(b)
 })
 .catch((error)=>{
  return res.status(400).json({error})
@@ -57,8 +65,12 @@ const findByGouv=(req, res, next)=>{
 
 //Ajout du club
 const store=(req,res,next)=>{
-    
-    const cl=new Club({...req.body,Logo:req.file.filename }, { strict: false });
+    let cl=new Club();
+    {if(req.file && req.file.originalname)
+        {cl=new Club({...req.body,Logo:req.file.filename}, { strict: false });
+       }
+        else{cl=new Club({...req.body}, { strict: false });
+        }}
     cl.save()
      
     .then((club)=>{
@@ -73,11 +85,15 @@ const store=(req,res,next)=>{
 
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
-  
-        Club.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Club updated successfully !'}))
+  if((req.file && req.file.originalname))
+        Club.updateOne({ _id: req.params.id }, { ...req.body,Logo:req.file.filename, _id: req.params.id })
+          .then(() => res.status(200).json({ message: 'Club updated with Logo successfully !'}))
           .catch(error => res.status(400).json({ error }));
-      
+    else{
+        Club.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Club updated without Logo successfully !'}))
+        .catch(error => res.status(400).json({ error }));
+    }
 }
 
 //delete club by id

@@ -41,7 +41,8 @@ const clubschema=new Schema({
     },
     Logo:{
      
-        type:String
+        type:String,
+        default:null
     },
     Num_tel:{
      type:[String],

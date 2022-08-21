@@ -20,8 +20,6 @@ const index=(req,res,next)=>{
         })
         
 })
-  const b=[...new Set(a)];
-  res.status(200).json(b)
 })
 .catch((error)=>{
  return res.status(400).json({error})

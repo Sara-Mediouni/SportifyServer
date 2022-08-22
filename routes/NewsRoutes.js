@@ -14,10 +14,10 @@ const Storage = multer.diskStorage({
 const upload=multer({storage:Storage}).single('images')
 
 router.get('/',EventsController.index)
-router.get('/showevents/:id',EventsController.show)
-router.post('/storeevent',upload,EventsController.store)
-router.put('/updateevent/:id',upload,EventsController.update)
-router.delete('/deleteevent/:id',EventsController.destroy)
+router.get('/shownews/:id',EventsController.show)
+router.post('/stornews',upload,EventsController.store)
+router.put('/updatenews/:id',upload,EventsController.update)
+router.delete('/deletenews/:id',EventsController.destroy)
 
 
 

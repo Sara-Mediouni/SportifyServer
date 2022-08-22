@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router()
-const EventsController=require('../controllers/NewsController')
+const NewsController=require('../controllers/NewsController')
 const multer = require('multer');
 const images = multer({dest: '../images/'})
 const path=require('path');
@@ -13,11 +13,11 @@ const Storage = multer.diskStorage({
 });
 const upload=multer({storage:Storage}).single('images')
 
-router.get('/',EventsController.index)
-router.get('/shownews/:id',EventsController.show)
-router.post('/stornews',upload,EventsController.store)
-router.put('/updatenews/:id',upload,EventsController.update)
-router.delete('/deletenews/:id',EventsController.destroy)
+router.get('/',NewsController.index)
+router.get('/shownews/:id',NewsController.show)
+router.post('/stornews',upload,NewsController.store)
+router.put('/updatenews/:id',upload,NewsController.update)
+router.delete('/deletenews/:id',NewsController.destroy)
 
 
 

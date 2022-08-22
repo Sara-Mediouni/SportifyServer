@@ -64,5 +64,5 @@ const destroy=(req, res, next)=>{
     .catch(error => res.status(400).json({ error }));
 }
 module.exports={
-    index,show,store,update,destroy
+    index,show,store,update,destroy,
 }

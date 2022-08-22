@@ -8,7 +8,7 @@ const { extname } = require('path');
 var ObjectId = require('mongodb').ObjectId;
 var clubs=[];
 //Liste des clubs
-const index=(req,res,next)=>{
+const indexactivty=(req,res,next)=>{
     Club.find()
 
 .then((clubs)=>{
@@ -16,7 +16,7 @@ const index=(req,res,next)=>{
     
    // console.log(clubs);
  clubs.map((c)=> {
-    c.Activité.map((act)=>{a.push(act);
+    c.Activite.map((act)=>{a.push(act);
         })
         
 })
@@ -27,7 +27,17 @@ const index=(req,res,next)=>{
  return res.status(400).json({error})
 })
 }
+const index=(req,res,next)=>{
+    Club.find()
 
+.then((clubs)=>{
+  
+  res.status(200).json(clubs)
+})
+.catch((error)=>{
+ return res.status(400).json({error})
+})
+}
 
 //Show club by ID
 const show=(req, res, next)=>{
@@ -42,21 +52,21 @@ const show=(req, res, next)=>{
 //Club par activité
 const findByAct=(req, res, next)=>{
    
-    Club.find({ activite: req.params.activite })
-      .then(club => res.status(200).json(club))
-      .catch(error => res.status(404).json({ error }));
+  Club.find({ Activite:{ $all : [req.params['activite']] } })
+  .then(club => res.status(200).json(club))
+  .catch(error => res.status(404).json({ error }));
 }
 //Club par region
 const findByRegion=(req, res, next)=>{
    
-    Club.find({ region: req.params.region })
+    Club.find({ Région: req.params.region })
       .then(club => res.status(200).json(club))
       .catch(error => res.status(404).json({ error }));
 }
 //Club par gouvernement
 const findByGouv=(req, res, next)=>{
    
-    Club.find({ gouvernement: req.params.gouvernement })
+    Club.find({ Gouvernement: req.params.gouvernement })
       .then(club => res.status(200).json(club))
       .catch(error => res.status(404).json({ error }));
 }
@@ -105,5 +115,5 @@ const destroy=(req, res, next)=>{
 
 
 module.exports={
-    index,show,store,update,destroy,findByAct,findByGouv,findByRegion
+    index,show,store,update,destroy,findByAct,findByGouv,findByRegion,indexactivty
 }

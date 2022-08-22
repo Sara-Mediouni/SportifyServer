@@ -12,7 +12,7 @@ const clubschema=new Schema({
     },
 
 
-    Activité:{
+    Activite:{
          type:[String],
          default:null,
          required:true,
@@ -49,7 +49,7 @@ const clubschema=new Schema({
      default:null,
      trim:true,
     },
-    Région:{
+    Region:{
          type:String,
          default:null,
          trim:true,

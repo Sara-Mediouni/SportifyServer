@@ -1,5 +1,5 @@
 const Club=require('../models/Club');
-const Temps = require('../models/Temps');
+const Temps = require('../models/news');
 const storage=require('../middleware/multer-config')
 const fs=require('fs')
 const multer=require('multer')

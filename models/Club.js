@@ -1,4 +1,4 @@
-const tempsschema=require('../models/Temps');
+const tempsschema=require('./news');
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
 const opts = { toJSON: { virtuals: true } };

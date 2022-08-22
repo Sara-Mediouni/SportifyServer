@@ -1,15 +1,15 @@
-const Events=require('../models/events');
+const News=require('../models/News');
 const storage=require('../middleware/multer-config')
 const fs=require('fs')
 const multer=require('multer')
 const path=require('path');
 const { extname } = require('path');
-const { eventNames } = require('../models/events');
+const { eventNames } = require('../models/News');
 var ObjectId = require('mongodb').ObjectId;
-var events=[];
+var News=[];
 
 const index=(req,res,next)=>{
-    Events.find()
+    News.find()
 
 .then((e)=>{
   
@@ -21,12 +21,12 @@ const index=(req,res,next)=>{
 }
 const show=(req, res, next)=>{
    
-    Events.findOne({ _id: req.params.id })
+    News.findOne({ _id: req.params.id })
       .then(e => res.status(200).json(e))
       .catch(error => res.status(404).json({ error }));
 }
 const store=(req,res,next)=>{
-    let e=new Events();
+    let e=new News();
     {if(req.file && req.file.originalname)
         {e=new Club({...req.body,image:req.file.filename}, { strict: false });
        }
@@ -47,11 +47,11 @@ const store=(req,res,next)=>{
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
   if((req.file && req.file.originalname))
-        Events.updateOne({ _id: req.params.id }, { ...req.body,image:req.file.filename, _id: req.params.id })
+        News.updateOne({ _id: req.params.id }, { ...req.body,image:req.file.filename, _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Event updated with image successfully !'}))
           .catch(error => res.status(400).json({ error }));
     else{
-       Events.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+       News.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Event updated without image successfully !'}))
         .catch(error => res.status(400).json({ error }));
     }
@@ -59,7 +59,7 @@ const update=(req, res, next)=>{
 
 //delete club by id
 const destroy=(req, res, next)=>{
-    Events.deleteOne({ _id: req.params.id })
+    News.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Event deleted successfully !'}))
     .catch(error => res.status(400).json({ error }));
 }

@@ -59,7 +59,7 @@ const update=(req, res, next)=>{
 
 //delete club by id
 const destroy=(req, res, next)=>{
-    Events.deleteOne({ _id: req.params.id })
+    Club.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Club deleted successfully !'}))
     .catch(error => res.status(400).json({ error }));
 }

@@ -6,7 +6,7 @@ const path=require('path');
 const { extname } = require('path');
 const { eventNames } = require('../models/News');
 var ObjectId = require('mongodb').ObjectId;
-var News=[];
+var news=[];
 
 const index=(req,res,next)=>{
     News.find()
@@ -48,11 +48,11 @@ const store=(req,res,next)=>{
 const update=(req, res, next)=>{
   if((req.file && req.file.originalname))
         News.updateOne({ _id: req.params.id }, { ...req.body,image:req.file.filename, _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Event updated with image successfully !'}))
+          .then(() => res.status(200).json({ message: 'News updated with image successfully !'}))
           .catch(error => res.status(400).json({ error }));
     else{
        News.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Event updated without image successfully !'}))
+        .then(() => res.status(200).json({ message: 'News updated without image successfully !'}))
         .catch(error => res.status(400).json({ error }));
     }
 }
@@ -60,7 +60,7 @@ const update=(req, res, next)=>{
 //delete club by id
 const destroy=(req, res, next)=>{
     News.deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Event deleted successfully !'}))
+    .then(() => res.status(200).json({ message: 'News deleted successfully !'}))
     .catch(error => res.status(400).json({ error }));
 }
 module.exports={

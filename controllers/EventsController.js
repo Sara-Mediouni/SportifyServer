@@ -51,7 +51,7 @@ const update=(req, res, next)=>{
           .then(() => res.status(200).json({ message: 'Event updated with image successfully !'}))
           .catch(error => res.status(400).json({ error }));
     else{
-       Events.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+        eventNames.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Event updated without image successfully !'}))
         .catch(error => res.status(400).json({ error }));
     }

@@ -2,16 +2,16 @@ const express=require('express')
 const router=express.Router()
 const NewsController=require('../controllers/NewsController')
 const multer = require('multer');
-const images = multer({dest: '../images/'})
+const images = multer({dest: '../uploadsnews/'})
 const path=require('path');
 const Storage = multer.diskStorage({
-  destination: "images",
+  destination: "uploadsnews",
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
     callback(null,Date.now()+'_'+name);
   }
 });
-const upload=multer({storage:Storage}).single('images')
+const upload=multer({storage:Storage}).single('uploadsnews')
 
 router.get('/',NewsController.index)
 router.get('/shownews/:id',NewsController.show)

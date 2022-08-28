@@ -28,7 +28,7 @@ const show=(req, res, next)=>{
 const store=(req,res,next)=>{
     let e=new News();
     {if(req.file && req.file.originalname)
-        {e=new Club({...req.body,image:req.file.filename}, { strict: false });
+        {e=new Club({...req.body,Image:req.file.filename}, { strict: false });
        }
         else{e=new Club({...req.body}, { strict: false });
         }}
@@ -47,12 +47,12 @@ const store=(req,res,next)=>{
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
   if((req.file && req.file.originalname))
-        News.updateOne({ _id: req.params.id }, { ...req.body,image:req.file.filename, _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'News updated with image successfully !'}))
+        News.updateOne({ _id: req.params.id }, { ...req.body,Image:req.file.filename, _id: req.params.id })
+          .then(() => res.status(200).json({ message: 'News updated with Image successfully !'}))
           .catch(error => res.status(400).json({ error }));
     else{
        News.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'News updated without image successfully !'}))
+        .then(() => res.status(200).json({ message: 'News updated without Image successfully !'}))
         .catch(error => res.status(400).json({ error }));
     }
 }

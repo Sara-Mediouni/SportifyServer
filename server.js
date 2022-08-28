@@ -7,6 +7,8 @@ const morgan=require('morgan');
 const { application } = require('express');
 const PORT=process.env.PORT||3000
 const ClubRoute=require('./routes/ClubRoutes')
+const EventsRoute=require('./routes/EventsRoutes')
+const NewsRoute=require('./routes/NewsRoutes')
 const app=express();
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,5 +34,9 @@ app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
 })
 app.use('/api/club',ClubRoute)
+app.use('/api/event',EventsRoute)
+app.use('/api/news',NewsRoute)
 app.use('/images',express.static('images'))
+app.use('/uploadsevent',express.static('uploadsevent'))
+app.use('/uploadsnews',express.static('uploadsnews'))
 console.log(__dirname)

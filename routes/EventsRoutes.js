@@ -11,7 +11,7 @@ const Storage = multer.diskStorage({
     callback(null,Date.now()+'_'+name);
   }
 });
-const upload=multer({storage:Storage}).single('uploadsevent')
+const upload=multer({storage:Storage}).single('Image')
 
 router.get('/',EventsController.index)
 router.get('/showevents/:id',EventsController.show)

@@ -4,7 +4,7 @@ const fs=require('fs')
 const multer=require('multer')
 const path=require('path');
 const { extname } = require('path');
-const { eventNames } = require('../models/events');
+
 var ObjectId = require('mongodb').ObjectId;
 var events=[];
 
@@ -28,9 +28,9 @@ const show=(req, res, next)=>{
 const store=(req,res,next)=>{
     let e=new Events();
     {if(req.file && req.file.originalname)
-        {e=new Club({...req.body,Image:req.file.filename}, { strict: false });
+        {e=new Events({...req.body,Image:req.file.filename}, { strict: false });
        }
-        else{e=new Club({...req.body}, { strict: false });
+        else{e=new Events({...req.body}, { strict: false });
         }}
     e.save()
      

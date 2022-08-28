@@ -1,10 +1,10 @@
-const News=require('../models/News');
+const News=require('../models/news');
 const storage=require('../middleware/multer-config')
 const fs=require('fs')
 const multer=require('multer')
 const path=require('path');
 const { extname } = require('path');
-const { eventNames } = require('../models/News');
+
 var ObjectId = require('mongodb').ObjectId;
 var news=[];
 
@@ -28,9 +28,9 @@ const show=(req, res, next)=>{
 const store=(req,res,next)=>{
     let e=new News();
     {if(req.file && req.file.originalname)
-        {e=new Club({...req.body,Image:req.file.filename}, { strict: false });
+        {e=new News({...req.body,Image:req.file.filename}, { strict: false });
        }
-        else{e=new Club({...req.body}, { strict: false });
+        else{e=new News({...req.body}, { strict: false });
         }}
     e.save()
      

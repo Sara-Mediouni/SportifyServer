@@ -1,6 +1,7 @@
 
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
+const opts = { toJSON: { virtuals: true } };
 const newsschema=new Schema({
    
     Image:{
@@ -16,10 +17,10 @@ const newsschema=new Schema({
     
     },
     Ordre:{
-        type:String,
+        type:Number,
     }
         
     
-})
+},opts)
 const News=mongoose.model('News',newsschema);
 module.exports=News

@@ -1,6 +1,7 @@
 
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema
+const opts = { toJSON: { virtuals: true } };
 const eventsschema=new Schema({
    
     Image:{
@@ -16,10 +17,10 @@ const eventsschema=new Schema({
     
     },
     Ordre:{
-        type:String
+        type:Number
     }
         
     
-})
+},opts)
 const Events=mongoose.model('Events',eventsschema);
 module.exports=Events

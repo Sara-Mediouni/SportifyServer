@@ -11,11 +11,11 @@ const Storage = multer.diskStorage({
     callback(null,Date.now()+'_'+name);
   }
 });
-const upload=multer({storage:Storage}).single('uploadsnews')
+const upload=multer({storage:Storage}).single('Image')
 
 router.get('/',NewsController.index)
 router.get('/shownews/:id',NewsController.show)
-router.post('/stornews',upload,NewsController.store)
+router.post('/storenews',upload,NewsController.store)
 router.put('/updatenews/:id',upload,NewsController.update)
 router.delete('/deletenews/:id',NewsController.destroy)
 

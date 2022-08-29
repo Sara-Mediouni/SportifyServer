@@ -134,9 +134,9 @@ const findByGouv=(req, res, next)=>{
 const store=(req,res,next)=>{
     let cl=new Club();
     {if(req.file && req.file.originalname)
-        {cl=new Club({...req.body,Logo:req.file.filename}, { strict: false });
+        {cl=new Club({...req.body,Logo:req.file.filename,Temps:JSON.parse(req.body.Temps)}, { strict: false });
        }
-        else{cl=new Club({...req.body}, { strict: false });
+        else{cl=new Club({...req.body,Temps:JSON.parse(req.body.Temps)}, { strict: false });
         }}
     cl.save()
      

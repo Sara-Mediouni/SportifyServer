@@ -15,13 +15,13 @@ const upload=multer({storage:Storage}).single('Logo')
 
 router.get('/',ClubController.index)
 router.get('/show/:id',ClubController.show)
-router.get('/activity',ClubController.indexactivty)
+router.get('/activity/:gouvernement/:region',ClubController.indexactivty)
 router.post('/store',upload,ClubController.store)
 router.put('/update/:id',upload,ClubController.update)
 router.delete('/delete/:id',ClubController.destroy)
-router.get('/find/:activite',ClubController.findByAct)
-router.get('/findregion/:region',ClubController.findByRegion)
-router.get('/findgouvernement/:gouvernement',ClubController.findByGouv)
+router.get('/find/:activite/:gouvernement/:region',ClubController.findByAct)
+
+router.get('/findgouvernement/:gouvernement/:region',ClubController.findByGouv)
 
 
 

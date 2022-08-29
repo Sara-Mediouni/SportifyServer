@@ -9,9 +9,9 @@ var ObjectId = require('mongodb').ObjectId;
 var clubs=[];
 //Liste des clubs
 const indexactivty=(req,res,next)=>{
-    Club.find()
-
-.then((clubs)=>{
+  if ((req.params.region!=="null")&&(req.params.gouvernement!=="null"))
+  {Club.find({$and: [{ Gouvernement: req.params.gouvernement},{Region: req.params.region }]})
+  .then((clubs)=>{
     const a=[];
     
    // console.log(clubs);
@@ -26,6 +26,45 @@ const indexactivty=(req,res,next)=>{
 .catch((error)=>{
  return res.status(400).json({error})
 })
+     } 
+     else if ((req.params.region==="null")&&(req.params.gouvernement!=="null")) {
+       Club.find({ Gouvernement: req.params.gouvernement})
+       .then((clubs)=>{
+        const a=[];
+        
+       // console.log(clubs);
+     clubs.map((c)=> {
+        c.Activite.map((act)=>{a.push(act);
+            })
+            
+    })
+      const b=[...new Set(a)];
+      res.status(200).json(b)
+    })
+    .catch((error)=>{
+     return res.status(400).json({error})
+    })
+    
+     }
+     else {
+     
+      Club.find()
+      .then((clubs)=>{
+        const a=[];
+        
+       // console.log(clubs);
+     clubs.map((c)=> {
+        c.Activite.map((act)=>{a.push(act);
+            })
+            
+    })
+      const b=[...new Set(a)];
+      res.status(200).json(b)
+    })
+    .catch((error)=>{
+     return res.status(400).json({error})
+    })
+     }
 }
 const index=(req,res,next)=>{
     Club.find()
@@ -51,10 +90,23 @@ const show=(req, res, next)=>{
 
 //Club par activité
 const findByAct=(req, res, next)=>{
-   
+  if ((req.params.region!=="null")&&(req.params.gouvernement!=="null"))
+  {Club.find({$and: [{ Gouvernement: req.params.gouvernement},{Region: req.params.region },{ Activite:{ $all : [req.params['activite']] } }]})
+  .then(club => res.status(200).json(club))
+  .catch(error => res.status(404).json({ error }));
+}
+else if ((req.params.region==="null")&&(req.params.gouvernement!=="null")) {
+  Club.find({$and:[{ Gouvernement: req.params.gouvernement},{ Activite:{ $all : [req.params['activite']] } }]})
+ 
+  .then(club => res.status(200).json(club))
+  .catch(error => res.status(404).json({ error }));
+}
+else{
   Club.find({ Activite:{ $all : [req.params['activite']] } })
   .then(club => res.status(200).json(club))
   .catch(error => res.status(404).json({ error }));
+}
+
 }
 //Club par region
 const findByRegion=(req, res, next)=>{
@@ -65,10 +117,15 @@ const findByRegion=(req, res, next)=>{
 }
 //Club par gouvernement
 const findByGouv=(req, res, next)=>{
-   
-    Club.find({ Gouvernement: req.params.gouvernement })
+   if ((req.params.region!=="null"))
+   {Club.find({$and: [{ Gouvernement: req.params.gouvernement},{Region: req.params.region }]})
+      .then(club => res.status(200).json(club))
+      .catch(error => res.status(404).json({ error }));} 
+      else {
+        Club.find({$or: [{ Gouvernement: req.params.gouvernement}]})
       .then(club => res.status(200).json(club))
       .catch(error => res.status(404).json({ error }));
+      }
 }
 
 

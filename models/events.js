@@ -18,6 +18,12 @@ const eventsschema=new Schema({
     },
     Ordre:{
         type:Number
+    },
+    Date:{
+        type:String
+    },
+    Horaire:{
+        type:String
     }
         
     

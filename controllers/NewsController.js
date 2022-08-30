@@ -9,7 +9,7 @@ var ObjectId = require('mongodb').ObjectId;
 var news=[];
 
 const index=(req,res,next)=>{
-    News.find()
+    News.find().sort({Ordre: 'asc'})
 
 .then((e)=>{
   

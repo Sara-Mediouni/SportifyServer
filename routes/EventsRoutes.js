@@ -18,7 +18,7 @@ router.get('/showevents/:id',EventsController.show)
 router.post('/storeevent',upload,EventsController.store)
 router.put('/updateevent/:id',upload,EventsController.update)
 router.delete('/deleteevent/:id',EventsController.destroy)
-
+router.get('/find/:gouvernement/:region',EventsController.findByGouv)
 
 
 module.exports =router

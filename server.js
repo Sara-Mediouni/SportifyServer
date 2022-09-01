@@ -1,10 +1,6 @@
 const express=require('express');
 const mongoose=require('mongoose');
-const path = require('path');
-const {MongoClient}=require('mongodb');
 const bodyParser=require('body-parser');
-const morgan=require('morgan');
-const { application } = require('express');
 const PORT=process.env.PORT||3000
 const ClubRoute=require('./routes/ClubRoutes')
 const EventsRoute=require('./routes/EventsRoutes')

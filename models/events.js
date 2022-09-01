@@ -24,6 +24,12 @@ const eventsschema=new Schema({
     },
     Horaire:{
         type:String
+    },
+    Gouvernement:{
+        type:String
+    },
+    Region:{
+        type:String
     }
         
     

@@ -152,16 +152,62 @@ const store=(req,res,next)=>{
 
 //Find by id et mettre à jour des clubs
 const update=(req, res, next)=>{
-  if((req.file && req.file.originalname))
-        Club.updateOne({ _id: req.params.id }, { ...req.body,Logo:req.file.filename, _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Club updated with Logo successfully !'}))
-          .catch(error => res.status(400).json({ error }));
-    else{
-        Club.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Club updated without Logo successfully !'}))
-        .catch(error => res.status(400).json({ error }));
-    }
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID unknown :"+req.params.id);
+    
+    if((req.file && req.file.originalname))
+    {const updatedClub={
+        Nom_club:req.body.Nom_club,
+        Num_tel:req.body.Num_tel,
+        Activite:req.body.Activite,
+        Emplacement:req.body.Emplacement,
+        Horaire:req.body.Horaire,
+        Nom_entren:req.body.Nom_entren,
+        Logo:req.file.filename,
+        Temps:JSON.parse(req.body.Temps),
+        Region:req.body.Region,
+         gouvernement:req.body.Gouvernement,
+    };
+    Club.findByIdAndUpdate(
+        req.params.id,
+        {$set:updatedClub},
+        {new:true}
+    ) .then((club)=>{
+        return res.status(203).json({updatedClub})
+ 
+ 
+    })
+    .catch((error)=>{
+     return res.status(400).json({error})
+    })
 }
+else{
+  {const updatedClub={
+    Nom_club:req.body.Nom_club,
+    Num_tel:req.body.Num_tel,
+    Activite:req.body.Activite,
+    Emplacement:req.body.Emplacement,
+    Horaire:req.body.Horaire,
+    Nom_entren:req.body.Nom_entren,
+    Temps:JSON.parse(req.body.Temps),
+    Region:req.body.Region,
+     gouvernement:req.body.Gouvernement,
+};
+Club.findByIdAndUpdate(
+    req.params.id,
+    {$set:updatedClub},
+    {new:true}
+) .then((club)=>{
+    return res.status(203).json({updatedClub})
+
+
+})
+.catch((error)=>{
+ return res.status(400).json({error})
+})
+}
+}}
+
 
 //delete club by id
 const destroy=(req, res, next)=>{

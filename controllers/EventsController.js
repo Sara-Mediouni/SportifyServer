@@ -1,12 +1,8 @@
 const Events=require('../models/events');
-const storage=require('../middleware/multer-config')
-const fs=require('fs')
-const multer=require('multer')
-const path=require('path');
+
 const { extname } = require('path');
 
-var ObjectId = require('mongodb').ObjectId;
-var events=[];
+
 
 const index=(req,res,next)=>{
     Events.find().sort({Ordre: 'asc'})
